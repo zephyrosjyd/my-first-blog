@@ -21,7 +21,7 @@ def post_new(request):
             #post.published_date = timezone.now()
             post.save()
             #post.publish()
-            return redirect('blog.views.post_detail', pk=post.pk)
+            return redirect('post_detail', pk=post.pk)
     else:
         form = PostForm()
     return render(request, 'blog/post_edit.html', {'form':form})
@@ -36,7 +36,7 @@ def post_edit(request, pk):
             #post.published_date = timezone.now()
             post.save()
             #post.publish()
-            return redirect('blog.views.post_detail', pk=post.pk)
+            return redirect('post_detail', pk=post.pk)
         
     else:
         form = PostForm(instance=post)
@@ -49,9 +49,9 @@ def post_draft_list(request):
 def post_publish(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.publish()
-    return redirect('blog.views.post_detail', pk=pk)
+    return redirect('post_detail', pk=post.pk)
 
 def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
-    return redirect('blog.views.post_list')
+    return redirect('post_list')
